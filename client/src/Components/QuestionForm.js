@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-const [question, setQuestion] = useState("");
-const [answer, setAnswer] = useState("");
-const [category, setCategory] = useState("MongoDB");
 
 const QuestionForm = () => {
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [category, setCategory] = useState("MongoDB");
+
   const handleSubmit = (event) => {
     event.preventDefault();
   };
