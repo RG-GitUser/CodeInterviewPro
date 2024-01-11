@@ -1,50 +1,47 @@
+const express = require("express");
+const { ApolloServer } = require("apollo-server-express");
+const path = require("path");
+// const { authMiddleware } = require("./utils/auth");
+const cors = require("cors");
 
-const express = require('express');
-const { ApolloServer } = require('@apollo/server');
-const {expressMiddleware} =require('@apollo/server/express4');
-const path = require('path');
-// const {authMiddleware}=require('./utils/auth')
-const cors = require ("cors")
-
-
-const {typeDefs, resolvers} = require ('./schemas');
-const db =require ('./config/connection')
+const { typeDefs, resolvers } = require("./schemas");
+const db = require("./config/connection");
 
 const PORT = process.env.PORT || 3001;
-const ENV = process.env.NODE_ENV || 'development';
 const app = express();
+
 app.use(cors());
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-//   context:authMiddleware
+  // context: authMiddleware,
 });
 
-const startApolloServer = async () => {
-  await server.start();
-  
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use('/graphql', expressMiddleware(server));
+const startApolloServer = async () => {
+  await server.start();
+  server.applyMiddleware({ app });
 
-// if we're in production, serve client/build as static assets
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/dist')));
+  if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../client/dist")));
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+    });
+  }
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+  db.once("open", () => {
+    app.listen(PORT, () => {
+      console.log(`API server running on port ${PORT}!`);
+      console.log(
+        `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`
+      );
+    });
+  }).on("error", (err) => {
+    console.error("Database connection error", err);
   });
-}
-
-db.once('open', () => {
-  app.listen(PORT, () => {
-    console.log(`API server running on port ${PORT}!`);
-    console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
-  });
-}).on('error',(err)=> {
-  console.error('database connection error',err)
-});
 };
 
 startApolloServer();
