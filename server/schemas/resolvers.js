@@ -1,12 +1,12 @@
 const Question = require("../models/Questions");
-const { User } = require("../models");
+const { User, Card } = require("../models"); // Assuming Card is also in ../models
 const { signToken } = require("../utils/auth");
-const { AutheticationError } = require("apollo-server-express");
+const { AuthenticationError } = require("apollo-server-express");
 
 const resolvers = {
   Query: {
     async getSingleUser(_, { id }) {
-      return await User.findbyId(id).populate("savedcards");
+      return await User.findById(id).populate("savedcards");
     },
     getAllQuestions: async () => {
       try {
@@ -26,17 +26,17 @@ const resolvers = {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
-        throw new AutheticationError("invalid credential");
+        throw new AuthenticationError("invalid credential");
       }
-      const correctPw = await user.isCorrectPassoword(passowrd);
+      const correctPw = await user.isCorrectPassword(password); // Assuming isCorrectPassword is the correct method name
       if (!correctPw) {
-        throw new AutheticationError("incorrect credentials");
+        throw new AuthenticationError("incorrect credentials");
       }
       const token = signToken(user);
       return { token, user };
     },
-    //save card mututaion
-    saveCard: async (_, { userId, bookData }) => {
+    saveCard: async (_, { userId, cardData }) => {
+      // Corrected parameter name
       return await User.findOneAndUpdate(
         { _id: userId },
         { $addToSet: { saveCards: cardData } },
@@ -44,10 +44,7 @@ const resolvers = {
       );
     },
     addFavoriteCard: async (_, { userId, cardId }) => {
-      // Find the card in the database
       const card = await Card.findById(cardId);
-
-      // Add the card to the user's list of favorite cards
       return await User.findOneAndUpdate(
         { _id: userId },
         { $addToSet: { favoriteCards: card } },
@@ -57,7 +54,7 @@ const resolvers = {
     removeCard: async (_, { userId, cardId }) => {
       return await User.findByIdAndUpdate(
         { _id: userId },
-        { $pull: { saveCards: { cardId } } },
+        { $pull: { saveCards: { _id: cardId } } }, // Assuming _id is the correct field
         { new: true }
       );
     },
