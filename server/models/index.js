@@ -1,3 +1,3 @@
-const Hello =require("./hello");
+const User =require("./User");
 
-module.exports = {Hello}
+module.exports = {User}
