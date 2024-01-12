@@ -1,0 +1,22 @@
+header a,
+header ul,
+header li {
+  text-decoration: none;
+  list-style: none;
+  padding: 1em;
+  color: var(--secondary-color);
+}
+
+header {
+  display: flex;
+  justify-content: right;
+  background-color: var(--primary-color);
+}
+
+header ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1em;
+  margin: 1em;
+}
