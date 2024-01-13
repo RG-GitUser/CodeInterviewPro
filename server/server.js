@@ -18,7 +18,7 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware, // Using authMiddleware for context (authentication)
+  context: authMiddleware, // Using authMiddleware 
 });
 
 // Serving static files
