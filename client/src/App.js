@@ -1,18 +1,13 @@
 import React from "react";
-import { ChakraProvider } from '@chakra-ui/react' //chakra UI import 
-import * as ReactDOM from 'react-dom/client'
+import { ChakraProvider, ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react';
+import { createApp } from 'vue';
+import * as ReactDOM from 'react-dom/client';
 
 import "./App.css";
 import { QuestionForm, Header } from "./Components";
 
-
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import {
-  ApolloProvider,
-  ApolloClient,
-  InMemoryCache,
-  HttpLink,
-} from "@apollo/client";
+import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 
 // Create an ApolloClient instance
 const client = new ApolloClient({
@@ -20,21 +15,46 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+// Extend Chakra UI theme for custom styling
+const { Button } = chakraTheme.components;
+const chakraThemeExtended = extendBaseTheme({
+  components: {
+    Button,
+  },
+});
+
+// Create a Vue app instance
+const vueApp = createApp(App);
+
+// Mount Chakra UI and Vue app on the root element
+const rootElement = document.getElementById('root');
+ReactDOM.createRoot(rootElement).render(
+  <React.StrictMode>
+    <ChakraProvider theme={chakraThemeExtended}>
+      <ApolloProvider client={client}>
+        <Router>
+          <div className="App">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/add-question" element={<AddQuestion />} />
+            </Routes>
+          </div>
+        </Router>
+      </ApolloProvider>
+    </ChakraProvider>
+  </React.StrictMode>,
+);
+
+// Vue app component (This should probably be a separate file)
 function App() {
   return (
-    <ApolloProvider client={client}>
-      <Router>
-        <div className="App">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/add-question" element={<AddQuestion />} />
-          </Routes>
-        </div>
-      </Router>
-    </ApolloProvider>
+    <ChakraBaseProvider theme={chakraTheme}>
+      {/* Add your Vue components here */}
+    </ChakraBaseProvider>
   );
 }
 
+// React component for Home
 function Home() {
   return (
     <>
@@ -44,6 +64,7 @@ function Home() {
   );
 }
 
+// React component for AddQuestion
 function AddQuestion() {
   return (
     <div>
@@ -52,40 +73,6 @@ function AddQuestion() {
       <QuestionForm />
     </div>
   );
-}
-
-const app = createApp(App);
-
-// Install Chakra UI
-const rootElement = document.getElementById('root')
-ReactDOM.createRoot(rootElement).render(
-  <React.StrictMode>
-    <ChakraProvider theme={theme}> {/* <--- Extend theme to handle  */ }
-      <App />
-    </ChakraProvider>
-  </React.StrictMode>,
-)
-
-import {
-  ChakraBaseProvider,
-  extendBaseTheme,
-  theme as chakraTheme,
-} from '@chakra-ui/react'
-
-const { Button } = chakraTheme.components
-
-const theme = extendBaseTheme({
-  components: {
-    Button,
-  },
-})
-
-function App() {
-  return (
-    <ChakraBaseProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraBaseProvider>
-  )
 }
 
 export default App;
