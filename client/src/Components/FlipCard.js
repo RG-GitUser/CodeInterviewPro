@@ -8,11 +8,18 @@ const FlipCard= ({ question }) => {
         setFlipped(!flipped);
     };
 
-
-
-
-
-
+    return (
+        <div className='flip-card' onCLick={handleClick}>
+            <div className={`flip-card-inner ${flipped ? 'flipped' : ''}`}> 
+                <div className='flip-card-front'>   
+                    <p>Click to view the question</p>
+                </div>
+                <div className='flip-card-back'>
+                    <p>{question}</p>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default FlipCard;
