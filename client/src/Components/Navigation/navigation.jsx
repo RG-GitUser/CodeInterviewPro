@@ -8,7 +8,7 @@ const Header = () => {
     <header>
       {/* Logo/Brand Name */}
       <div className="logo">
-        <Link to="/">Your App Name</Link>
+        <Link to="/">CodeInterviewPro</Link>
       </div>
 
       {/* Navigation Bar */}
