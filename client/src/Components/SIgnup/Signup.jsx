@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -9,14 +9,25 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 import { useMutation } from "@apollo/client";
-
-import { LOGIN_USER } from '../../../src/utils/mutations';
+import { ADD_USER } from "../../utils/mutations";
 import Auth from "../utils/auth";
 
-const LoginForm = () => {
-  const [userFormData, setUserFormData] = useState({ email: "", password: "" });
+const SignupForm = () => {
+  const [userFormData, setUserFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
   const [showAlert, setShowAlert] = useState(false);
-  const [login, { error }] = useMutation(LOGIN_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
+
+  useEffect(() => {
+    if (error) {
+      setShowAlert(true);
+    } else {
+      setShowAlert(false);
+    }
+  }, [error]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -27,13 +38,13 @@ const LoginForm = () => {
     event.preventDefault();
 
     try {
-      const { data } = await login({
+      const { data } = await addUser({
         variables: { ...userFormData },
       });
-      Auth.login(data.login.token);
+
+      Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);
-      setShowAlert(true);
     }
 
     setUserFormData({
@@ -54,10 +65,21 @@ const LoginForm = () => {
       {showAlert && (
         <Alert status="error">
           <AlertIcon />
-          Something went wrong with your login credentials!
+          Something went wrong with your signup!
         </Alert>
       )}
-      <FormControl id="email" isRequired>
+      <FormControl id="username" isRequired>
+        <FormLabel>Username</FormLabel>
+        <Input
+          type="text"
+          placeholder="Your username"
+          name="username"
+          onChange={handleInputChange}
+          value={userFormData.username}
+        />
+      </FormControl>
+
+      <FormControl id="email" isRequired mt={6}>
         <FormLabel>Email</FormLabel>
         <Input
           type="email"
@@ -83,17 +105,18 @@ const LoginForm = () => {
         colorScheme="teal"
         mt={6}
         type="submit"
-        isDisabled={!(userFormData.email && userFormData.password)}
+        isDisabled={
+          !(
+            userFormData.username &&
+            userFormData.email &&
+            userFormData.password
+          )
+        }
       >
         Submit
       </Button>
-      {error && (
-        <Box color="red.500" mt={3}>
-          Login failed
-        </Box>
-      )}
     </Box>
   );
 };
 
-export default LoginForm;
+export default SignupForm;

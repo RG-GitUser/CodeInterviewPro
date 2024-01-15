@@ -1,6 +1,4 @@
 import React from 'react';
-import About from "./components/About/about";
-import Contact from "./components/Contact/contact";
 import { Link } from 'react-router-dom';
 
 const Header = () => {

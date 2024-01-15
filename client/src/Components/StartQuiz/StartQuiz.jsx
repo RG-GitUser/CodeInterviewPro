@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import "./startQuiz.css";
-import { Quiz } from "../../Components";
+import { Quiz } from "..";
 
 const GET_QUESTIONS = gql`
   query GetQuestions($categories: [String!]!) {
