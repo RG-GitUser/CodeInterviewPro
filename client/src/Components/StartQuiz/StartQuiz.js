@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import "./startQuiz.css";
-import { Quiz } from "../../Components";
+import { Quiz, Categories } from "../../Components";
 
 const GET_QUESTIONS = gql`
   query GetQuestions($categories: [String!]!) {
@@ -19,7 +19,7 @@ const GET_QUESTIONS = gql`
   }
 `;
 
-const StartQuiz = ({ activeCategories }) => {
+const StartQuiz = ({ activeCategories, initialCategories, setActiveCategories }) => {
   const { loading, error, data } = useQuery(GET_QUESTIONS, {
     variables: { categories: activeCategories },
   });
@@ -36,7 +36,7 @@ const StartQuiz = ({ activeCategories }) => {
     }
   };
 
-  if (showComponent) {
+  if (showComponent && data) {
     return (
       <div>
         <Quiz questions={data.startQuiz.questions} />
@@ -45,6 +45,8 @@ const StartQuiz = ({ activeCategories }) => {
   } else {
     return (
       <div>
+        <Categories initialCategories={initialCategories} activeCategories={activeCategories} setActiveCategories={setActiveCategories} />
+
         <button className="startButton" onClick={handleStartQuiz}>
           Start Quiz
         </button>
