@@ -3,46 +3,61 @@ const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
 const { authMiddleware } = require("./utils/auth");
 const cors = require("cors");
-const { expressMiddleware } = require("@apollo/server/express4");
 
+// Importing GraphQL schema and db connection
 const { typeDefs, resolvers } = require("./schemas");
 const db = require("./config/connection");
 
+// Setting up the port
 const PORT = process.env.PORT || 3001;
+
+// Creating an Express application
 const app = express();
 
+// Apply CORS middleware
 app.use(cors());
 
+// Creating an Apollo Server instance
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware,
+  context: authMiddleware, // Using authMiddleware
+  introspection: true,      
+  playground: true,         
 });
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// Serving static files
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/dist")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  });
+}
 
-const startApolloServer = async () => {
-  await server.start();
-  server.applyMiddleware({ app });
+// Start Apollo Server and apply middleware
+async function startApolloServer() {
+  try {
+    // Start Apollo Server asynchronously
+    await server.start();
 
-  if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../client/dist")));
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-    });
-  }
+    // Apply middleware only after the server is started
+    server.applyMiddleware({ app });
 
-  db.once("open", () => {
+    // Start listening on the specified port
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
-      console.log(
-        `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`
-      );
+      console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
     });
-  }).on("error", (err) => {
-    console.error("Database connection error", err);
-  });
-};
 
-startApolloServer();
+    // Handling errors with the database connection
+    db.once("open", () => {
+      console.log("Database connection established successfully!");
+    }).on("error", (err) => {
+      console.error("Database connection error", err);
+    });
+  } catch (error) {
+    console.error("Error starting Apollo Server:", error.message);
+  }
+}
+
+startApolloServer(); // Initiating the setup of Apollo Server and Express app

@@ -8,7 +8,7 @@ const typeDefs = gql`
   }
 
   type User {
-    _Id: ID!
+    _id: ID!
     username: String!
     email: String!
     savedCards: [Card]
@@ -17,12 +17,6 @@ const typeDefs = gql`
   type Auth {
     token: ID!
     user: User
-  }
-
-  type Card {
-    cardId: String!
-    question: [String]
-    answer: String!
   }
   input InputCard {
     cardId: String!
