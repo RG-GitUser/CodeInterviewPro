@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+// Categories.js
+import React from "react";
 import "./categories.css";
 
-const Categories = () => {
-  const initialCategories = ["MongoDB", "Express", "React", "Node", "JavaScript Fundamentals", "RESTful API", "GraphQL"];
-  const [activeCategories, setActiveCategories] = useState([]);
-
+const Categories = ({ initialCategories, activeCategories, setActiveCategories }) => {
   const handleCategoryClick = (category) => {
     // Check if the category is already in the activeCategories array
     if (activeCategories.includes(category)) {

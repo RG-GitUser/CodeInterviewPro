@@ -1,9 +1,10 @@
 import { ChakraBaseProvider, extendBaseTheme, theme as chakraTheme } from "@chakra-ui/react";
 import "./App.css";
-import { QuestionForm, Header, Categories } from "./Components";
+import { QuestionForm, Header, Categories, StartQuiz } from "./Components";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
+import React, { useState } from "react";
 
 const { Button } = chakraTheme.components;
 
@@ -36,10 +37,14 @@ function App() {
 
 // React component for Home
 function Home() {
+  const initialCategories = ["MongoDB", "Express", "React", "Node", "JavaScript Fundamentals", "RESTful API", "GraphQL"];
+  const [activeCategories, setActiveCategories] = useState([]);
+
   return (
     <>
       <Header />
-      <Categories />
+      <Categories initialCategories={initialCategories} activeCategories={activeCategories} setActiveCategories={setActiveCategories} />
+      <StartQuiz activeCategories={activeCategories} />
     </>
   );
 }
