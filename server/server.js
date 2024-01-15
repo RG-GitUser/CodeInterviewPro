@@ -22,8 +22,6 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   // context: authMiddleware, // Using authMiddleware
-  introspection: true,      
-  playground: true,         
 });
 
 // Serving static files
