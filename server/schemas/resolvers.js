@@ -16,6 +16,30 @@ const resolvers = {
         throw new Error("Error fetching questions");
       }
     },
+    startQuiz: async (_, { categories }) => {
+      try {
+        const questions = await Question.aggregate([{ $match: { category: { $in: categories } } }, { $sample: { size: 2 } }]);
+
+        // Ensure each question has a valid ID
+        const questionsWithId = questions.map((question) => ({
+          ...question,
+          id: question._id.toString(), // Assuming MongoDB ObjectId
+        }));
+
+        return {
+          success: true,
+          message: "Quiz started successfully!",
+          questions: questionsWithId,
+        };
+      } catch (error) {
+        console.error("Error in startQuiz resolver:", error);
+        return {
+          success: false,
+          message: "An error occurred while starting the quiz.",
+          questions: null,
+        };
+      }
+    },
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -36,40 +60,18 @@ const resolvers = {
       return { token, user };
     },
     saveCard: async (_, { userId, cardData }) => {
-      return await User.findOneAndUpdate(
-        { _id: userId },
-        { $addToSet: { saveCards: cardData } },
-        { new: true, runValidators: true }
-      );
+      return await User.findOneAndUpdate({ _id: userId }, { $addToSet: { saveCards: cardData } }, { new: true, runValidators: true });
     },
     addFavoriteCard: async (_, { userId, cardId }) => {
       const card = await Card.findById(cardId);
-      return await User.findOneAndUpdate(
-        { _id: userId },
-        { $addToSet: { favoriteCards: card } },
-        { new: true, runValidators: true }
-      );
+      return await User.findOneAndUpdate({ _id: userId }, { $addToSet: { favoriteCards: card } }, { new: true, runValidators: true });
     },
     removeCard: async (_, { userId, cardId }) => {
-      return await User.findByIdAndUpdate(
-        { _id: userId },
-        { $pull: { saveCards: { _id: cardId } } },
-        { new: true }
-      );
+      return await User.findByIdAndUpdate({ _id: userId }, { $pull: { saveCards: { _id: cardId } } }, { new: true });
     },
     addQuestion: async (_, { question, answer, category }) => {
       try {
-        if (
-          ![
-            "MongoDB",
-            "Express",
-            "React",
-            "Node",
-            "JavaScript Fundamentals",
-            "RESTful API",
-            "GraphQL",
-          ].includes(category)
-        ) {
+        if (!["MongoDB", "Express", "React", "Node", "JavaScript Fundamentals", "RESTful API", "GraphQL"].includes(category)) {
           throw new Error("Invalid category");
         }
 
