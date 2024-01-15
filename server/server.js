@@ -14,6 +14,9 @@ const PORT = process.env.PORT || 3001;
 // Creating an Express application
 const app = express();
 
+// Apply CORS middleware
+app.use(cors());
+
 // Creating an Apollo Server instance
 const server = new ApolloServer({
   typeDefs,
@@ -35,7 +38,7 @@ async function startApolloServer() {
     // Start Apollo Server asynchronously
     await server.start();
 
-    // Apply middleware only after server is started
+    // Apply middleware only after the server is started
     server.applyMiddleware({ app });
 
     // Start listening on the specified port
