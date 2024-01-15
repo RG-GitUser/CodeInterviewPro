@@ -1,6 +1,6 @@
 import { ChakraBaseProvider, extendBaseTheme, theme as chakraTheme } from "@chakra-ui/react";
 import "./App.css";
-import { QuestionForm, Header } from "./Components";
+import { QuestionForm, Header, Categories } from "./Components";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
@@ -39,7 +39,7 @@ function Home() {
   return (
     <>
       <Header />
-      Home
+      <Categories />
     </>
   );
 }
