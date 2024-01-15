@@ -1,8 +1,9 @@
 /* Styling for the FlipCard component */
 .flip-card {
-  width: 200px;
+  width: 300px;
   height: 200px;
   perspective: 1000px;
+  margin-bottom: 2em;
 }
 .flip-card-inner {
   width: 100%;
@@ -22,18 +23,22 @@
   backface-visibility: hidden;
 }
 .flip-card-front {
-  background-color: #f2f2f2;
+  background-color: var(--secondary-color);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  border-radius: 10%;
+  padding: 1em;
 }
 .flip-card-back {
-  background-color: #2196f3;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border-radius: 10%;
   transform: rotateY(180deg);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  padding: 1em;
 }
