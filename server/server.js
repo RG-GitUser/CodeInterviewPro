@@ -21,9 +21,7 @@ app.use(cors());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware, // Using authMiddleware
-  introspection: true,      
-  playground: true,         
+  // context: authMiddleware, // Using authMiddleware
 });
 
 // Serving static files
