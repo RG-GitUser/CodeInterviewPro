@@ -1,5 +1,5 @@
 const Question = require("../models/Questions");
-const { User, Card } = require("../models"); // Assuming Card is also in ../models
+const { User, Card } = require("../models");
 const { signToken } = require("../utils/auth");
 const { AuthenticationError } = require("apollo-server-express");
 
@@ -16,6 +16,30 @@ const resolvers = {
         throw new Error("Error fetching questions");
       }
     },
+    startQuiz: async (_, { categories }) => {
+      try {
+        const questions = await Question.aggregate([{ $match: { category: { $in: categories } } }, { $sample: { size: 2 } }]);
+
+        // Ensure each question has a valid ID
+        const questionsWithId = questions.map((question) => ({
+          ...question,
+          id: question._id.toString(), // Assuming MongoDB ObjectId
+        }));
+
+        return {
+          success: true,
+          message: "Quiz started successfully!",
+          questions: questionsWithId,
+        };
+      } catch (error) {
+        console.error("Error in startQuiz resolver:", error);
+        return {
+          success: false,
+          message: "An error occurred while starting the quiz.",
+          questions: null,
+        };
+      }
+    },
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -28,7 +52,7 @@ const resolvers = {
       if (!user) {
         throw new AuthenticationError("invalid credential");
       }
-      const correctPw = await user.isCorrectPassword(password); // Assuming isCorrectPassword is the correct method name
+      const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
         throw new AuthenticationError("incorrect credentials");
       }
@@ -36,41 +60,18 @@ const resolvers = {
       return { token, user };
     },
     saveCard: async (_, { userId, cardData }) => {
-      // Corrected parameter name
-      return await User.findOneAndUpdate(
-        { _id: userId },
-        { $addToSet: { saveCards: cardData } },
-        { new: true, runValidators: true }
-      );
+      return await User.findOneAndUpdate({ _id: userId }, { $addToSet: { saveCards: cardData } }, { new: true, runValidators: true });
     },
     addFavoriteCard: async (_, { userId, cardId }) => {
       const card = await Card.findById(cardId);
-      return await User.findOneAndUpdate(
-        { _id: userId },
-        { $addToSet: { favoriteCards: card } },
-        { new: true, runValidators: true }
-      );
+      return await User.findOneAndUpdate({ _id: userId }, { $addToSet: { favoriteCards: card } }, { new: true, runValidators: true });
     },
     removeCard: async (_, { userId, cardId }) => {
-      return await User.findByIdAndUpdate(
-        { _id: userId },
-        { $pull: { saveCards: { _id: cardId } } }, // Assuming _id is the correct field
-        { new: true }
-      );
+      return await User.findByIdAndUpdate({ _id: userId }, { $pull: { saveCards: { _id: cardId } } }, { new: true });
     },
     addQuestion: async (_, { question, answer, category }) => {
       try {
-        if (
-          ![
-            "MongoDB",
-            "Express",
-            "React",
-            "Node",
-            "JavaScript Fundamentals",
-            "RESTful API",
-            "GraphQL",
-          ].includes(category)
-        ) {
+        if (!["MongoDB", "Express", "React", "Node", "JavaScript Fundamentals", "RESTful API", "GraphQL"].includes(category)) {
           throw new Error("Invalid category");
         }
 
