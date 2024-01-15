@@ -1,17 +1,14 @@
 import React from 'react';
-import { ChakraProvider, extendBaseTheme } from '@chakra-ui/react';
-import { createApolloClient, ApolloProvider } from './apollo'; // Import your Apollo-related setup
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { createApolloClient, ApolloProvider } from './apollo'; 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import './App.css';
-import { Header, Home, AddQuestion } from './components';
+import './App.css';   // Add missing components to functions below
+import { Header, Navigation, Home, AddQuestion, About, Contact, Footer } from './components';
 
 // Extend Chakra UI theme for custom styling
-const { Button } = chakraTheme.components;
-const chakraThemeExtended = extendBaseTheme({
-  components: {
-    Button,
-  },
+const chakraThemeExtended = extendTheme({
+  // Custom configs go here 
 });
 
 // Create an ApolloClient instance

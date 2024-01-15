@@ -7,13 +7,14 @@ mongoose
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      
     }
   )
   .then(() => {
     console.log("connected to mongoatlas");
   })
   .catch((e) => {
-    console.log("Unable to connect atlas");
+    console.log("Unable to connect to MongoDB");
     console.log(e);
   });
 
