@@ -1,5 +1,5 @@
 const Question = require("../models/Questions");
-const { User, Card } = require("../models"); // Assuming Card is also in ../models
+const { User, Card } = require("../models");
 const { signToken } = require("../utils/auth");
 const { AuthenticationError } = require("apollo-server-express");
 
@@ -28,7 +28,7 @@ const resolvers = {
       if (!user) {
         throw new AuthenticationError("invalid credential");
       }
-      const correctPw = await user.isCorrectPassword(password); // Assuming isCorrectPassword is the correct method name
+      const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
         throw new AuthenticationError("incorrect credentials");
       }
@@ -36,7 +36,6 @@ const resolvers = {
       return { token, user };
     },
     saveCard: async (_, { userId, cardData }) => {
-      // Corrected parameter name
       return await User.findOneAndUpdate(
         { _id: userId },
         { $addToSet: { saveCards: cardData } },
@@ -54,7 +53,7 @@ const resolvers = {
     removeCard: async (_, { userId, cardId }) => {
       return await User.findByIdAndUpdate(
         { _id: userId },
-        { $pull: { saveCards: { _id: cardId } } }, // Assuming _id is the correct field
+        { $pull: { saveCards: { _id: cardId } } },
         { new: true }
       );
     },
