@@ -1,15 +1,17 @@
 // Categories.js
+
 import React from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons'; // Import solid star
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'; // Import regular star
+
 import "./categories.css";
 
 const Categories = ({ initialCategories, activeCategories, setActiveCategories }) => {
   const handleCategoryClick = (category) => {
-    // Check if the category is already in the activeCategories array
     if (activeCategories.includes(category)) {
-      // If it is, remove it
       setActiveCategories(activeCategories.filter((activeCategory) => activeCategory !== category));
     } else {
-      // If it's not, add it
       setActiveCategories([...activeCategories, category]);
     }
   };
@@ -25,6 +27,8 @@ const Categories = ({ initialCategories, activeCategories, setActiveCategories }
           return (
             <div className={categoryClassName} key={index} onClick={() => handleCategoryClick(category)}>
               <p>{category}</p>
+              <FontAwesomeIcon icon={isActive ? faStar : faStarRegular} className="star-icon" />
+
             </div>
           );
         })}
