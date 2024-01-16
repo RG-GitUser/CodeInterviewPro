@@ -4,9 +4,7 @@ const mongoose = require("mongoose");
 const Questions = require("../models/Questions");
 const seedData = require("./seeds.json");
 
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/codinginterviewpro"
-);
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/codinginterviewpro");
 
 mongoose.connection.on("open", async () => {
   try {

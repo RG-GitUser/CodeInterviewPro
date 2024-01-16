@@ -1,7 +1,6 @@
 import { ChakraBaseProvider, extendBaseTheme, theme as chakraTheme } from "@chakra-ui/react";
 import "./App.css";
 import { QuestionForm, Header, Categories, StartQuiz, Footer } from "./Components";
-
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import React, { useState } from "react";
@@ -10,7 +9,7 @@ const { Button } = chakraTheme.components;
 
 // Create an ApolloClient instance
 const client = new ApolloClient({
-  link: new HttpLink({ uri: "http://127.0.0.1:3001/graphql" }),
+  link: new HttpLink({ uri: "http://localhost:3001/graphql" }),
   cache: new InMemoryCache(),
 });
 
@@ -44,8 +43,7 @@ function Home() {
   return (
     <>
       <Header />
-      <Categories initialCategories={initialCategories} activeCategories={activeCategories} setActiveCategories={setActiveCategories} />
-      <StartQuiz activeCategories={activeCategories} />
+      <StartQuiz activeCategories={activeCategories} initialCategories={initialCategories} setActiveCategories={setActiveCategories} />
     </>
   );
 }

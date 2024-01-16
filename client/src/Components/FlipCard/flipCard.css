@@ -1,5 +1,6 @@
 /* Styling for the FlipCard component */
 .flip-card {
+  margin-top: 2em;
   width: 300px;
   height: 200px;
   perspective: 1000px;
