@@ -31,6 +31,8 @@ const QuestionForm = () => {
       variables: { question, answer, category },
     });
 
+    console.log("response: ", response);
+
     if (response.data.addQuestion.success) {
       setShowSuccessMessage(true);
       setShowErrorMessage(false);

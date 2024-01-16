@@ -26,13 +26,15 @@ const StartQuiz = ({ activeCategories, initialCategories, setActiveCategories })
   const [showComponent, setShowComponent] = useState(false);
 
   const handleStartQuiz = () => {
-    if (loading) {
-      console.log("Loading...");
-    } else if (error) {
-      console.error("Error:", error);
-    } else {
-      console.log("Received response:", data.startQuiz);
-      setShowComponent(true);
+    if (activeCategories.length > 0) {
+      if (loading) {
+        console.log("Loading...");
+      } else if (error) {
+        console.error("Error:", error);
+      } else {
+        console.log("Received response:", data.startQuiz);
+        setShowComponent(true);
+      }
     }
   };
 
@@ -43,11 +45,14 @@ const StartQuiz = ({ activeCategories, initialCategories, setActiveCategories })
       </div>
     );
   } else {
+    console.log("activeCategories:", activeCategories);
+    let buttonClass = `startButton ${activeCategories.length > 0 ? "active" : "inactive"}`;
+
     return (
       <div>
         <Categories initialCategories={initialCategories} activeCategories={activeCategories} setActiveCategories={setActiveCategories} />
 
-        <button className="startButton" onClick={handleStartQuiz}>
+        <button className={buttonClass} onClick={handleStartQuiz}>
           Start Quiz
         </button>
       </div>

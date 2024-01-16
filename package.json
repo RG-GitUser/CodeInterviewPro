@@ -16,7 +16,7 @@
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
-  "proxy": "http://127.0.0.1:3001",
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@apollo/client": "^3.8.9",
     "@apollo/react-hooks": "^4.0.0",

@@ -13,6 +13,12 @@
   transition-duration: 0.4s;
 }
 
-.startButton:hover {
+.startButton.active:hover {
   transform: scale(1.1);
+}
+
+.startButton.inactive {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
 }
