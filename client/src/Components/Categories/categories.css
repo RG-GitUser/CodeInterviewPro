@@ -44,3 +44,12 @@
 .category.active p {
   color: var(--secondary-color);
 }
+
+.category-content {
+  display: flex;
+  align-items: center;
+}
+
+.star-icon {
+  margin-left: 10px; 
+}
