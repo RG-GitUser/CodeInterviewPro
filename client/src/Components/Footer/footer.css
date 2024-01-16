@@ -7,15 +7,15 @@
 
 /* Add the following styles to your existing CSS */
 .footer-section {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #312F2F;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-  }
-  
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--primary-color);
+  /* color: var(--secondary-color); */
+  padding: 20px;
+  text-align: center;
+}
+
 .footer-section ul {
   list-style: none;
   padding: 0;
@@ -28,5 +28,5 @@
 
 .footer-section a {
   text-decoration: none;
-  color: #fff;
+  color: var(--secondary-color);
 }

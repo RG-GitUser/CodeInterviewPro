@@ -56,6 +56,7 @@ function Home() {
         <StartQuiz
           activeCategories={activeCategories}
           initialCategories={initialCategories}
+          git
           setActiveCategories={setActiveCategories}
           setQuizStarted={setQuizStarted}
           setData={setData}

@@ -22,6 +22,7 @@ const Header = ({ onHomeClick }) => {
 
   return (
     <header>
+      <h1>Coding Interview Pro</h1>
       <nav>
         <ul>
           <li>

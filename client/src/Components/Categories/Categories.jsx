@@ -1,9 +1,9 @@
 // Categories.js
 
 import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons'; // Import solid star
-import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'; // Import regular star
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons"; // Import solid star
+import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons"; // Import regular star
 
 import "./categories.css";
 
@@ -18,7 +18,7 @@ const Categories = ({ initialCategories, activeCategories, setActiveCategories }
 
   return (
     <div className="categories">
-      <h1>Categories</h1>
+      <h2>Categories</h2>
       <div className="category-list">
         {initialCategories.map((category, index) => {
           const isActive = activeCategories.includes(category);
@@ -28,7 +28,6 @@ const Categories = ({ initialCategories, activeCategories, setActiveCategories }
             <div className={categoryClassName} key={index} onClick={() => handleCategoryClick(category)}>
               <p>{category}</p>
               <FontAwesomeIcon icon={isActive ? faStar : faStarRegular} className="star-icon" />
-
             </div>
           );
         })}
