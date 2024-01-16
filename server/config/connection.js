@@ -2,8 +2,6 @@ const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "../../.env") });
 const mongoose = require("mongoose");
 
-console.log("MONGODO: ", process.env.MONGODB_URI);
-
 mongoose
   .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/codinginterviewpro")
   .then(() => {
