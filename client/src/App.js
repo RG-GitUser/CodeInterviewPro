@@ -1,7 +1,6 @@
 import { ChakraBaseProvider, extendBaseTheme, theme as chakraTheme } from "@chakra-ui/react";
 import "./App.css";
-import { QuestionForm, Header, StartQuiz } from "./Components";
-
+import { QuestionForm, Header, Categories, StartQuiz, Footer } from "./Components";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import React, { useState } from "react";
@@ -29,6 +28,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/add-question" element={<AddQuestion />} />
           </Routes>
+          <Footer />
         </div>
       </Router>
     </ApolloProvider>
