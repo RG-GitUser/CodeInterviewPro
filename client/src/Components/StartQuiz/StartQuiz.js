@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import "./startQuiz.css";
-import { Quiz, Categories } from "../../Components";
+import { Categories } from "../../Components";
 
 const GET_QUESTIONS = gql`
   query GetQuestions($categories: [String!]!) {
@@ -19,11 +18,10 @@ const GET_QUESTIONS = gql`
   }
 `;
 
-const StartQuiz = ({ activeCategories, initialCategories, setActiveCategories }) => {
+const StartQuiz = ({ activeCategories, initialCategories, setActiveCategories, setQuizStarted, setData }) => {
   const { loading, error, data } = useQuery(GET_QUESTIONS, {
     variables: { categories: activeCategories },
   });
-  const [showComponent, setShowComponent] = useState(false);
 
   const handleStartQuiz = () => {
     if (activeCategories.length > 0) {
@@ -33,31 +31,23 @@ const StartQuiz = ({ activeCategories, initialCategories, setActiveCategories })
         console.error("Error:", error);
       } else {
         console.log("Received response:", data.startQuiz);
-        setShowComponent(true);
+        setData(data);
+        setQuizStarted(true);
       }
     }
   };
 
-  if (showComponent && data) {
-    return (
-      <div>
-        <Quiz questions={data.startQuiz.questions} />
-      </div>
-    );
-  } else {
-    console.log("activeCategories:", activeCategories);
-    let buttonClass = `startButton ${activeCategories.length > 0 ? "active" : "inactive"}`;
+  let buttonClass = `startButton ${activeCategories.length > 0 ? "active" : "inactive"}`;
 
-    return (
-      <div>
-        <Categories initialCategories={initialCategories} activeCategories={activeCategories} setActiveCategories={setActiveCategories} />
+  return (
+    <div>
+      <Categories initialCategories={initialCategories} activeCategories={activeCategories} setActiveCategories={setActiveCategories} />
 
-        <button className={buttonClass} onClick={handleStartQuiz}>
-          Start Quiz
-        </button>
-      </div>
-    );
-  }
+      <button className={buttonClass} onClick={handleStartQuiz}>
+        Start Quiz
+      </button>
+    </div>
+  );
 };
 
 export default StartQuiz;

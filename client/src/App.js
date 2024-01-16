@@ -1,6 +1,6 @@
 import { ChakraBaseProvider, extendBaseTheme, theme as chakraTheme } from "@chakra-ui/react";
 import "./App.css";
-import { QuestionForm, Header, Categories, StartQuiz, Footer } from "./Components";
+import { QuestionForm, Header, Quiz, StartQuiz, Footer } from "./Components";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import React, { useState } from "react";
@@ -39,11 +39,28 @@ function App() {
 function Home() {
   const initialCategories = ["MongoDB", "Express", "React", "Node", "JavaScript Fundamentals", "RESTful API", "GraphQL"];
   const [activeCategories, setActiveCategories] = useState([]);
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [data, setData] = useState(null);
+
+  function resetQuiz() {
+    setQuizStarted(false);
+    setActiveCategories([]);
+  }
 
   return (
     <>
-      <Header />
-      <StartQuiz activeCategories={activeCategories} initialCategories={initialCategories} setActiveCategories={setActiveCategories} />
+      <Header onHomeClick={resetQuiz} />
+      {quizStarted && data ? (
+        <Quiz questions={data.startQuiz.questions} />
+      ) : (
+        <StartQuiz
+          activeCategories={activeCategories}
+          initialCategories={initialCategories}
+          setActiveCategories={setActiveCategories}
+          setQuizStarted={setQuizStarted}
+          setData={setData}
+        />
+      )}
     </>
   );
 }
