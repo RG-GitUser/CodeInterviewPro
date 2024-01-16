@@ -1,6 +1,6 @@
 // Header.js
-
-import React from "react";
+// 
+import { useContext } from "react";
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'graphql-tag';
 import { Link } from "react-router-dom";
@@ -19,7 +19,7 @@ const GET_USER = gql`
 
 const Header = () => {
   // Use the useQuery hook to fetch user data
-  const { loading, error, data } = useQuery(GET_USER);
+  // const { loading, error, data } = useQuery(GET_USER);
 
   return (
     <header>
@@ -31,14 +31,12 @@ const Header = () => {
           <li>
             <Link to="/add-question">Add Question</Link>
           </li>
+          <li>
+            <Link to="/login">Login</Link>
+            </li>
          
-          {loading ? (
-            <li>Loading...</li>
-          ) : error ? (
-            <li>Error fetching user data</li>
-          ) : (
-            <li>Welcome, {data.user.username}</li>
-          )}
+   
+          
         </ul>
       </nav>
     </header>

@@ -1,0 +1,22 @@
+
+.footer-section {
+    background-color: #333; /* Change the background color as needed */
+    color: #fff; /* Change the text color as needed */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-section li {
+    display: inline-block;
+    margin-right: 15px;
+  }
+  
+  .footer-section a {
+    text-decoration: none;
+    color: #fff; /* Change the link color as needed */
+  }
