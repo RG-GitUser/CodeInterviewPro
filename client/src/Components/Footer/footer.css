@@ -1,22 +1,32 @@
+/* App.css */
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
+/* Add the following styles to your existing CSS */
 .footer-section {
-    background-color: #333; /* Change the background color as needed */
-    color: #fff; /* Change the text color as needed */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
     padding: 20px;
     text-align: center;
   }
   
-  .footer-section ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer-section li {
-    display: inline-block;
-    margin-right: 15px;
-  }
-  
-  .footer-section a {
-    text-decoration: none;
-    color: #fff; /* Change the link color as needed */
-  }
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section li {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.footer-section a {
+  text-decoration: none;
+  color: #fff;
+}
