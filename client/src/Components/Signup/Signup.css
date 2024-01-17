@@ -1,0 +1,42 @@
+.login-form {
+    padding: 60px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    max-width: 1200px;
+    margin: 5 auto;
+  }
+  
+  .alert {
+    color: #ff0000;
+    margin-bottom: 16px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+  }
+  
+  button {
+    background-color: #008080;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .error {
+    color: #ff0000;
+    margin-top: 16px;
+  }
+  
