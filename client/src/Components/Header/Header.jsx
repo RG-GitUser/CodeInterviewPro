@@ -1,7 +1,7 @@
 // Header.js
 //
 import { useContext } from "react";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { gql } from "graphql-tag";
 import { Link } from "react-router-dom";
 import "./header.css";
@@ -20,6 +20,7 @@ const Header = ({ onHomeClick }) => {
   // Use the useQuery hook to fetch user data
   // const { loading, error, data } = useQuery(GET_USER);
 
+
   return (
     <header>
       <nav>
@@ -34,6 +35,12 @@ const Header = ({ onHomeClick }) => {
           </li>
           <li>
             <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/signup">signup</Link>
+          </li>
+          <li>
+            <Link to="/logout">logout</Link>
           </li>
         </ul>
       </nav>
