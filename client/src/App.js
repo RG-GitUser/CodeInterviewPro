@@ -1,9 +1,9 @@
+import React, { useState } from "react";
 import { ChakraBaseProvider, extendBaseTheme, theme as chakraTheme } from "@chakra-ui/react";
 import "./App.css";
-import { QuestionForm, Header, Quiz, StartQuiz, Footer } from "./Components";
+import { QuestionForm, Header, Quiz, StartQuiz, Footer, About, Contact } from "./Components";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
-import React, { useState } from "react";
 import LoginForm from "./Components/Login/Login";
 import SignupForm from "./Components/signup/signup";
 import Logout from "./Components/Logout/Logout";
@@ -59,6 +59,8 @@ function App() {
                   }
                 />
               )}
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
             </Routes>
             <Footer />
           </div>
@@ -66,6 +68,7 @@ function App() {
       </ApolloProvider>
     );
   }
+
   return (
     <ApolloProvider client={client}>
       <Router>
