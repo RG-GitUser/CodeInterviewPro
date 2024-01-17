@@ -24,6 +24,48 @@ const theme = extendBaseTheme({
 });
 
 function App() {
+  if (!Auth.loggedIn()) {
+    return (
+      <ApolloProvider client={client}>
+        <Router>
+          <div className="App">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Header />
+                    <LoginForm />
+                  </>
+                }
+              ></Route>
+              <Route
+                path="/login"
+                element={
+                  <>
+                    <Header />
+                    <LoginForm />
+                  </>
+                }
+              ></Route>
+              {!Auth.loggedIn() && (
+                <Route
+                  path="/signup"
+                  element={
+                    <>
+                      <Header />
+                      <SignupForm />
+                    </>
+                  }
+                />
+              )}
+            </Routes>
+            <Footer />
+          </div>
+        </Router>
+      </ApolloProvider>
+    );
+  }
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -31,7 +73,19 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             {Auth.loggedIn() && <Route path="/add-question" element={<AddQuestion />} />}
-            {Auth.loggedIn() ? <Route path="/logout" element={<Logout />} /> : <Route path="/login" element={<LoginForm />} />}
+            {Auth.loggedIn() ? (
+              <Route
+                path="/logout"
+                element={
+                  <>
+                    <Header />
+                    <Logout />
+                  </>
+                }
+              />
+            ) : (
+              <Route path="/login" element={<LoginForm />} />
+            )}
             {!Auth.loggedIn() && <Route path="/signup" element={<SignupForm />} />}
           </Routes>
           <Footer />
@@ -77,7 +131,7 @@ function AddQuestion() {
   return (
     <div>
       <Header />
-      <h1>Add Question</h1>
+
       <QuestionForm />
     </div>
   );

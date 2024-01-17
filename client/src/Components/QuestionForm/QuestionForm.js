@@ -46,7 +46,8 @@ const QuestionForm = () => {
   };
 
   return (
-    <div>
+    <div className="question-form-container">
+      <h1>Add Question</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Question:</label>

@@ -23,7 +23,7 @@ const Header = ({ onHomeClick }) => {
 
   return (
     <header>
-      <h1>Coding Interview Pro</h1>
+      <h1 className="title">Coding Interview Pro</h1>
       <nav>
         <ul>
           <li>
@@ -41,9 +41,11 @@ const Header = ({ onHomeClick }) => {
               <Link to="/login">Login</Link>
             </li>
           )}
-          <li>
-            <Link to="/signup">Signup</Link>
-          </li>
+          {!Auth.loggedIn() && (
+            <li>
+              <Link to="/signup">Signup</Link>
+            </li>
+          )}
           {Auth.loggedIn() && (
             <li>
               <Link to="/logout">Logout</Link>

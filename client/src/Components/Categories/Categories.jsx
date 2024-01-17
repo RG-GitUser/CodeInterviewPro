@@ -18,7 +18,7 @@ const Categories = ({ initialCategories, activeCategories, setActiveCategories }
 
   return (
     <div className="categories">
-      <h2>Categories</h2>
+      <h1>Categories</h1>
       <div className="category-list">
         {initialCategories.map((category, index) => {
           const isActive = activeCategories.includes(category);
