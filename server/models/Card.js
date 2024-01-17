@@ -10,7 +10,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  //saved card id from json data
+
   cardId: {
     type: String,
     required: true,

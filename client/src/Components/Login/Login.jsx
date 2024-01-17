@@ -1,17 +1,24 @@
-import { useState } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Alert,
-  AlertIcon,
-} from "@chakra-ui/react";
-import { useMutation } from "@apollo/client";
 
-import { LOGIN_USER } from '../../utils/mutations';
-import Auth from "../utils/auth";
+
+import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import {gql} from '@apollo/client'
+// import { LOGIN_USER } from '../../utils/mutations';
+import Auth from "../../utils/auth";
+import "./Login.css";
+
+ const LOGIN_USER = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+      user {
+        _id
+        username
+        email
+      }
+    }
+  }
+`;
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
@@ -44,55 +51,45 @@ const LoginForm = () => {
   };
 
   return (
-    <Box
-      as="form"
-      p={5}
-      shadow="md"
-      borderWidth="1px"
-      onSubmit={handleFormSubmit}
-    >
+    <form className="login-form" onSubmit={handleFormSubmit}>
       {showAlert && (
-        <Alert status="error">
-          <AlertIcon />
+        <div className="alert error">
           Something went wrong with your login credentials!
-        </Alert>
+        </div>
       )}
-      <FormControl id="email" isRequired>
-        <FormLabel>Email</FormLabel>
-        <Input
-          type="email"
-          placeholder="Your email"
-          name="email"
-          onChange={handleInputChange}
-          value={userFormData.email}
-        />
-      </FormControl>
+      <label htmlFor="email">Email</label>
+      <input
+        type="email"
+        placeholder="Your email"
+        name="email"
+        onChange={handleInputChange}
+        value={userFormData.email}
+        required
+      />
 
-      <FormControl id="password" isRequired mt={6}>
-        <FormLabel>Password</FormLabel>
-        <Input
-          type="password"
-          placeholder="Your password"
-          name="password"
-          onChange={handleInputChange}
-          value={userFormData.password}
-        />
-      </FormControl>
+      <label htmlFor="password" style={{ marginTop: '16px' }}>Password</label>
+      <input
+        type="password"
+        placeholder="Your password"
+        name="password"
+        onChange={handleInputChange}
+        value={userFormData.password}
+        required
+      />
 
-      <Button
-        colorScheme="teal"
-        mt={6}
+      <button
         type="submit"
-        isDisabled={!(userFormData.email && userFormData.password)}
+        disabled={!(userFormData.email && userFormData.password)}
       >
-        Submit
-      </Button>
+        login
+      </button>
       {error && (
-        <Box color="red.500" mt={3}>
+        <div className="alert error" style={{ marginTop: '16px' }}>
           Login failed
-        </Box>
+        </div>
       )}
-    </Box>
+   
+    </form>
   );
 };
 

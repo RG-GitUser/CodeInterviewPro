@@ -4,6 +4,10 @@ import { QuestionForm, Header, Quiz, StartQuiz, Footer } from "./Components";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import React, { useState } from "react";
+import LoginForm from "./Components/Login/Login";
+import SignupForm from "./Components/SIgnup/Signup";
+import Logout from "./Components/Logout/Logout";
+import Auth from "./utils/auth";
 
 const { Button } = chakraTheme.components;
 
@@ -26,7 +30,12 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/add-question" element={<AddQuestion />} />
+            
+            <Route path="/" element={<Home />} />
+            {Auth.loggedIn() && <Route path="/add-question" element={<AddQuestion />} />}
+            {Auth.loggedIn() ? <Route path="/logout" element={<Logout/>} /> : <Route path="/login" element={<LoginForm/>} />}
+            {!Auth.loggedIn() && <Route path="/signup" element={<SignupForm/>} />}
+
           </Routes>
           <Footer />
         </div>

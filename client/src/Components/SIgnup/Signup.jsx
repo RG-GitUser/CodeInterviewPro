@@ -1,16 +1,22 @@
-import { useState, useEffect } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Alert,
-  AlertIcon,
-} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import Auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
-import { ADD_USER } from "../../utils/mutations";
-import Auth from "../utils/auth";
+import { gql } from "@apollo/client";
+// import { ADD_USER } from "../../utils/mutations";
+import "./Signup.css"
+
+ const ADD_USER = gql`
+  mutation addUser($username: String!, $email: String!, $password: String!) {
+    addUser(username: $username, email: $email, password: $password) {
+      token
+      user {
+        _id
+        username
+        email
+      }
+    }
+  }
+`;
 
 const SignupForm = () => {
   const [userFormData, setUserFormData] = useState({
@@ -18,8 +24,9 @@ const SignupForm = () => {
     email: "",
     password: "",
   });
+
   const [showAlert, setShowAlert] = useState(false);
-  const [addUser, { error }] = useMutation(ADD_USER);
+  const [addUser, { error, data }] = useMutation(ADD_USER);
 
   useEffect(() => {
     if (error) {
@@ -31,11 +38,21 @@ const SignupForm = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUserFormData({ ...userFormData, [name]: value });
+
+    setUserFormData({
+      ...userFormData,
+      [name]: value,
+    });
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
     try {
       const { data } = await addUser({
@@ -55,67 +72,56 @@ const SignupForm = () => {
   };
 
   return (
-    <Box
-      as="form"
-      p={5}
-      shadow="md"
-      borderWidth="1px"
-      onSubmit={handleFormSubmit}
-    >
+    <>
       {showAlert && (
-        <Alert status="error">
-          <AlertIcon />
+        <div style={{ color: "red", margin: "10px 0" }}>
           Something went wrong with your signup!
-        </Alert>
+        </div>
       )}
-      <FormControl id="username" isRequired>
-        <FormLabel>Username</FormLabel>
-        <Input
+
+      <form className="login-form"noValidate onSubmit={handleFormSubmit}>
+        <label htmlFor="username">Username:</label>
+        <input
           type="text"
           placeholder="Your username"
           name="username"
           onChange={handleInputChange}
           value={userFormData.username}
+          required
         />
-      </FormControl>
 
-      <FormControl id="email" isRequired mt={6}>
-        <FormLabel>Email</FormLabel>
-        <Input
+        <label htmlFor="email">Email:</label>
+        <input
           type="email"
-          placeholder="Your email"
+          placeholder="Your email address"
           name="email"
           onChange={handleInputChange}
           value={userFormData.email}
+          required
         />
-      </FormControl>
 
-      <FormControl id="password" isRequired mt={6}>
-        <FormLabel>Password</FormLabel>
-        <Input
+        <label htmlFor="password">Password:</label>
+        <input
           type="password"
           placeholder="Your password"
           name="password"
           onChange={handleInputChange}
           value={userFormData.password}
+          required
         />
-      </FormControl>
 
-      <Button
-        colorScheme="teal"
-        mt={6}
-        type="submit"
-        isDisabled={
-          !(
-            userFormData.username &&
-            userFormData.email &&
-            userFormData.password
-          )
-        }
-      >
-        Submit
-      </Button>
-    </Box>
+        <button
+          type="submit"
+          disabled={
+            !userFormData.username ||
+            !userFormData.email ||
+            !userFormData.password
+          }
+        >
+          Submit
+        </button>
+      </form>
+    </>
   );
 };
 

@@ -20,7 +20,6 @@ const resolvers = {
       try {
         const questions = await Question.aggregate([{ $match: { category: { $in: categories } } }]);
 
-        // Ensure each question has a valid ID
         const questionsWithId = questions.map((question) => ({
           ...question,
           id: question._id.toString(), // Assuming MongoDB ObjectId
