@@ -29,4 +29,6 @@
 .footer-section a {
   text-decoration: none;
   color: var(--secondary-color);
+  font-size: 1.3em;
 }
+
