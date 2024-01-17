@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import React, { useState } from "react";
 import LoginForm from "./Components/Login/Login";
-import SignupForm from "./Components/SIgnup/Signup";
+import SignupForm from "./Components/Signup/Signup";
 import Logout from "./Components/Logout/Logout";
 import Auth from "./utils/auth";
 
@@ -30,12 +30,9 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={<Home />} />
-            
-            <Route path="/" element={<Home />} />
             {Auth.loggedIn() && <Route path="/add-question" element={<AddQuestion />} />}
-            {Auth.loggedIn() ? <Route path="/logout" element={<Logout/>} /> : <Route path="/login" element={<LoginForm/>} />}
-            {!Auth.loggedIn() && <Route path="/signup" element={<SignupForm/>} />}
-
+            {Auth.loggedIn() ? <Route path="/logout" element={<Logout />} /> : <Route path="/login" element={<LoginForm />} />}
+            {!Auth.loggedIn() && <Route path="/signup" element={<SignupForm />} />}
           </Routes>
           <Footer />
         </div>
