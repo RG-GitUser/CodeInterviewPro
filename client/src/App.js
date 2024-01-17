@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import React, { useState } from "react";
 import LoginForm from "./Components/Login/Login";
-import SignupForm from "./Components/Signup/Signup";
+import SignupForm from "./Components/signup/signup";
 import Logout from "./Components/Logout/Logout";
 import Auth from "./utils/auth";
 
