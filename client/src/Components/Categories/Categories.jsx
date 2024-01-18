@@ -27,7 +27,7 @@ const Categories = ({ initialCategories, activeCategories, setActiveCategories }
           return (
             <div className={categoryClassName} key={index} onClick={() => handleCategoryClick(category)}>
               <p>{category}</p>
-              <FontAwesomeIcon icon={isActive ? faStar : faStarRegular} className="star-icon" />
+
             </div>
           );
         })}
