@@ -1,10 +1,6 @@
 // Categories.js
 
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons"; // Import solid star
-import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons"; // Import regular star
-
 import "./categories.css";
 
 const Categories = ({ initialCategories, activeCategories, setActiveCategories }) => {
@@ -27,7 +23,6 @@ const Categories = ({ initialCategories, activeCategories, setActiveCategories }
           return (
             <div className={categoryClassName} key={index} onClick={() => handleCategoryClick(category)}>
               <p>{category}</p>
-
             </div>
           );
         })}
