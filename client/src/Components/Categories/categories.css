@@ -7,7 +7,6 @@
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;
   cursor: pointer;
-  color: var(--secondary-color);
   height: 3em;
   display: flex;
   align-items: center;
@@ -17,7 +16,6 @@
 .category p {
   font-size: 1.2rem;
   font-weight: 500;
-  color: var(--primary-color);
 }
 
 .category-list {
@@ -25,6 +23,7 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 1em;
+  margin-top: 6%;
 }
 
 @media (max-width: 768px) {
@@ -53,7 +52,7 @@
 }
 
 .category.active p {
-  color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 .category-content {
