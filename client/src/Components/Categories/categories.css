@@ -12,11 +12,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
 }
 
 .category p {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 500;
   color: var(--primary-color);
 }
@@ -47,27 +46,17 @@
   }
 }
 
-.category:hover,
-.category.active {
-  transform: scale(1.05);
+.category:hover {
+  transform: scale(1.1);
   background-color: var(--primary-color);
   color: var(--secondary-color);
 }
 
-.category:hover p,
 .category.active p {
   color: var(--secondary-color);
 }
 
-@media (hover: hover) {
-  .category:hover,
-  .category.active {
-    transform: scale(1.1);
-    background-color: var(--primary-color);
-  }
-
-  .category:hover p,
-  .category.active p {
-    color: var(--secondary-color);
-  }
+.category-content {
+  display: flex;
+  align-items: center;
 }
