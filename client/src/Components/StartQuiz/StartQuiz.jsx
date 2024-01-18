@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import "./startQuiz.css";
 import { Categories } from "..";
-import Quiz  from "../Quiz/Quiz";
+
 
 
 const GET_QUESTIONS = gql`
