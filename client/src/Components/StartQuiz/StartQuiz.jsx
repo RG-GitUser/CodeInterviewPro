@@ -5,6 +5,8 @@ import { Categories } from "..";
 import Quiz  from "../Quiz/Quiz";
 
 
+
+
 const GET_QUESTIONS = gql`
   query GetQuestions($categories: [String!]!) {
     startQuiz(categories: $categories) {
