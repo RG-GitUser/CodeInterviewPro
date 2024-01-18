@@ -90,6 +90,8 @@ function App() {
               <Route path="/login" element={<LoginForm />} />
             )}
             {!Auth.loggedIn() && <Route path="/signup" element={<SignupForm />} />}
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
           <Footer />
         </div>
