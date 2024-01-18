@@ -1,13 +1,13 @@
 
 h1 {
-    font-size: 3em; /* Adjust the value as needed */
+    font-size: 2.5em; 
   }
 
 p {
-    font-size: 1.5em; /* Adjust the value as needed */
+    font-size: 1.5em; 
   }
 
-  link {
-    
+  .msgLink {
+    text-decoration: none;
   }
 
