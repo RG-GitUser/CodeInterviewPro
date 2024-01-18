@@ -1,5 +1,5 @@
 const path = require("path");
-require("dotenv").config({ path: "../../.env" });
+require("dotenv").config({ path: "../../../.env" });
 const mongoose = require("mongoose");
 const Questions = require("../models/Questions");
 const seedData = require("./seeds.json");

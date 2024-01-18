@@ -48,7 +48,7 @@ const QuestionForm = () => {
   return (
     <div className="question-form-container">
       <h1>Add Question</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="question-form" onSubmit={handleSubmit}>
         <div>
           <label>Question:</label>
           <input type="text" value={question} onChange={(e) => setQuestion(e.target.value)} />
