@@ -39,6 +39,7 @@ header {
   display: flex;
   background-color: var(--primary-color);
   justify-content: space-between;
+  
 }
 
 header ul {
@@ -49,3 +50,8 @@ header ul {
   padding: 0.5em;
   margin: 0.5em;
 }
+
+ul {
+  font-size: 1.3em;
+}
+

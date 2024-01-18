@@ -38,17 +38,17 @@ const Header = ({ onHomeClick }) => {
           )}
           {!Auth.loggedIn() && (
             <li>
-              <Link to="/login">Login</Link>
+              <Link className='log' to="/login">Login</Link>
             </li>
           )}
           {!Auth.loggedIn() && (
             <li>
-              <Link to="/signup">Signup</Link>
+              <Link className ='sign' to="/signup">Signup</Link>
             </li>
           )}
           {Auth.loggedIn() && (
             <li>
-              <Link to="/logout">Logout</Link>
+              <Link className='out' to="/logout">Logout</Link>
             </li>
           )}
         </ul>
