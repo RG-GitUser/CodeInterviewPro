@@ -29,13 +29,32 @@ label {
   font-weight: bold;
 }
 
-input,
+
 select {
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  width: 100%;
+  width: 90%;
 }
+
+.quest {
+  width: 90%;
+}
+
+.lbl {
+  width: 90%;
+
+}
+
+.cat {
+  width: 93.5%;
+}
+
+.subBtn {
+  width: 50%;
+  margin-left: 23.5%;
+}
+
 
 button {
   padding: 10px 15px;

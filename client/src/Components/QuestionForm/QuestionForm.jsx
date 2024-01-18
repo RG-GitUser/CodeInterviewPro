@@ -51,17 +51,17 @@ const QuestionForm = () => {
       <form className="question-form" onSubmit={handleSubmit}>
         <div>
           <label>Question:</label>
-          <input type="text" value={question} onChange={(e) => setQuestion(e.target.value)} />
+          <input className= 'quest' type="text" value={question} onChange={(e) => setQuestion(e.target.value)} />
         </div>
 
         <div>
           <label>Answer:</label>
-          <input type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} />
+          <input className= 'lbl' type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} />
         </div>
 
         <div>
           <label>Category:</label>
-          <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <select className='cat' value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="MongoDB">MongoDB</option>
             <option value="Express">Express</option>
             <option value="React">React</option>
@@ -74,7 +74,7 @@ const QuestionForm = () => {
           </select>
         </div>
 
-        <button type="submit">Submit</button>
+        <button className= 'subBtn' type="submit">Submit</button>
       </form>
       {showSuccessMessage && <div className="success-message">Question added successfully!</div>}
 
