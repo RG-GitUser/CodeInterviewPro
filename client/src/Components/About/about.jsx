@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../Header/Header';
 import './about.css';
 
 const About = () => {
   return (
     <div>
+        <Header />
       <h1>About Us</h1>
       <p>
         Welcome to our website! We are a team of passionate individuals dedicated to providing
@@ -15,8 +17,9 @@ const About = () => {
          Whether you are a visitor or a contributor, we value your presence and participation in our community.
       </p>
       <p>
-        If you have any questions or suggestions, feel free to send us a <Link to="/contact">Message!</Link>{' '}
+        If you have any questions or suggestions, feel free to send us a <Link className ='msgLink' to="/contact">Message!</Link>{' '}
       </p>
+    
     </div>
   );
 };

@@ -1,8 +1,14 @@
-/* contactForm.css */
+/* contacts.css */
 
 form {
     max-width: 400px;
-    margin: auto;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    margin-top: 15%;
   }
   
   label {
@@ -20,13 +26,38 @@ form {
   }
   
   button {
-    background-color: #4caf50;
+    background-color: #007bff;
     color: #fff;
     padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
   }
+
+#name {
+    width: 97%;
+}
+
+#email {
+    width: 97%;
+}
+
+#message {
+    width: 97%;
+}
   
   button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
   }
+  
+  /* Optional: Add responsive styles for smaller screens */
+  @media (max-width: 600px) {
+    form {
+      max-width: 100%;
+    }
+  }
+
+
+
+
   
