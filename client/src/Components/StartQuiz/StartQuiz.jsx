@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import "./startQuiz.css";
-import { Categories } from "../../Components";
+import { Categories } from "..";
 
 const GET_QUESTIONS = gql`
   query GetQuestions($categories: [String!]!) {
