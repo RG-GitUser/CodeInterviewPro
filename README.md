@@ -44,7 +44,7 @@ CodeInterviewPro is designed to help software developers prepare for job intervi
 
 The application is deployed using Render with an Atlas MongoDB instance.
 
-The application is deployed at [CodeInterviewPro](https://code-interiew-pro.onrender.com/add-question). Users can register, log in, browse or add questions, and participate in quizzes.
+The application is deployed at [CodeInterviewPro](https://code-interiew-pro.onrender.com). Users can register, log in, browse or add questions, and participate in quizzes.
 
 ## Contributing
 
